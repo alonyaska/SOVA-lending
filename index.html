@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Sova - Защищённый мессенджер с AI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0d0e10;
+            --surface: #131418;
+            --border: #2a2d35;
+            --border-hover: #3b3f4a;
+            --accent: #4a9eff;
+            --text-main: #e1e1e6;
+            --text-muted: #7a7d85;
+            
+            --badge-stable: #56d364;
+            --badge-beta: #e3b341;
+            --badge-soon: #8957e5;
+
+            --font-text: 'IBM Plex Sans', sans-serif;
+            --font-code: 'JetBrains Mono', monospace;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text-main);
+            font-family: var(--font-text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, .code-font {
+            font-family: var(--font-code);
+            font-weight: 700;
+        }
+
+        a {
+            color: var(--accent);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        a:hover {
+            color: var(--text-main);
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        /* --- UI Elements --- */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .btn {
+            display: inline-block;
+            font-family: var(--font-code);
+            font-size: 0.9rem;
+            padding: 0.75rem 1.5rem;
+            background: transparent;
+            color: var(--text-main);
+            border: 1px solid var(--border);
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: all 0.2s ease;
+        }
+
+        .btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            transform: translate(-2px, -2px);
+            box-shadow: 2px 2px 0 var(--accent);
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: var(--bg);
+            border: 1px solid var(--accent);
+            font-weight: bold;
+        }
+
+        .btn-primary:hover {
+            background: var(--bg);
+            color: var(--accent);
+            transform: translate(-4px, -4px);
+            box-shadow: 4px 4px 0 var(--accent);
+        }
+
+        .badge {
+            display: inline-block;
+            font-family: var(--font-code);
+            font-size: 0.7rem;
+            padding: 0.15rem 0.4rem;
+            border: 1px solid;
+            vertical-align: middle;
+            margin-left: 0.5rem;
+            font-weight: normal;
+        }
+
+        .badge.stable { color: var(--badge-stable); border-color: var(--badge-stable); }
+        .badge.beta { color: var(--badge-beta); border-color: var(--badge-beta); }
+        .badge.soon { color: var(--badge-soon); border-color: var(--badge-soon); }
+
+        .muted { color: var(--text-muted); }
+        .comment { color: var(--text-muted); font-family: var(--font-code); display: block; margin-bottom: 0.5rem; font-size: 0.85rem;}
+
+        /* --- Navbar --- */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(13, 14, 16, 0.9);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid var(--border);
+            z-index: 100;
+        }
+
+        .nav-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .logo {
+        display: flex;
+        align-items: center; /* Выравнивает текст и картинку ровно по центру */
+        gap: 0.3rem; /* Небольшой отступ между текстом и логотипом */
+        font-family: var(--font-code);
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--text-main);
+        letter-spacing: -1px;
+    }
+
+        .logo-icon {
+            height: 1.1em; /* Логотип автоматически подстроится под размер текста */
+            width: auto;
+            object-fit: contain; /* Чтобы картинка не искажалась */
+            border-radius: 4px; /* Опционально: если хочешь чуть скруглить края картинки */
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            font-family: var(--font-code);
+            font-size: 0.9rem;
+        }
+
+        .nav-links a { color: var(--text-muted); }
+        .nav-links a:hover { color: var(--text-main); }
+
+        /* --- Hero Section --- */
+        .hero {
+            padding: 150px 0 100px;
+            display: flex;
+            align-items: center;
+            gap: 4rem;
+        }
+
+        .hero-content {
+            flex: 1;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: -2px;
+        }
+
+        .hero-subtitle {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            margin-bottom: 2.5rem;
+            max-width: 500px;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .hero-visual {
+            flex: 1;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            font-family: var(--font-code);
+            font-size: 0.85rem;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .terminal-header {
+            border-bottom: 1px solid var(--border);
+            padding: 0.5rem 1rem;
+            display: flex;
+            justify-content: space-between;
+            color: var(--text-muted);
+        }
+
+        .terminal-body {
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .chat-line { display: flex; gap: 0.5rem; }
+        .chat-time { color: var(--text-muted); }
+        .chat-user { color: var(--accent); font-weight: bold; }
+        .chat-bot { color: var(--badge-beta); font-weight: bold; }
+
+        /* --- Sections --- */
+        section { padding: 80px 0; border-top: 1px solid var(--border); }
+        
+        .section-header { margin-bottom: 3rem; }
+        .section-title { font-size: 2rem; margin-bottom: 0.5rem; text-transform: uppercase;}
+
+        /* --- Grid (Cards) --- */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .card {
+            border: 1px solid var(--border);
+            background: var(--bg);
+            display: flex;
+            transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .card:hover {
+            border-color: var(--accent);
+            transform: translate(-3px, -3px);
+            box-shadow: 3px 3px 0 var(--accent);
+        }
+
+        .card-numbers {
+            padding: 1.5rem 0.75rem;
+            background: var(--surface);
+            border-right: 1px solid var(--border);
+            color: var(--text-muted);
+            font-family: var(--font-code);
+            font-size: 0.8rem;
+            text-align: right;
+            line-height: 1.8;
+            user-select: none;
+        }
+
+        .card-content {
+            padding: 1.5rem;
+            flex: 1;
+        }
+
+        .card-content h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-main);
+        }
+
+        .card-content p {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+        }
+
+        /* --- Roadmap --- */
+        .roadmap-card {
+            padding: 2rem;
+            border: 1px solid var(--border);
+            transition: all 0.2s;
+            position: relative;
+        }
+
+        .roadmap-card:hover {
+            border-color: var(--border-hover);
+            background: var(--surface);
+        }
+
+        .roadmap-card h3 {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+
+        /* --- How it works --- */
+        .steps-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .step-item {
+            display: flex;
+            border: 1px solid var(--border);
+            font-family: var(--font-code);
+        }
+
+        .step-num {
+            padding: 1.5rem;
+            background: var(--surface);
+            border-right: 1px solid var(--border);
+            color: var(--accent);
+            font-weight: bold;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 80px;
+        }
+
+        .step-text {
+            padding: 1.5rem;
+            display: flex;
+            align-items: center;
+            color: var(--text-main);
+            font-size: 1.1rem;
+            width: 100%;
+        }
+        
+        .prompt { color: var(--text-muted); margin-right: 0.5rem; }
+
+        /* --- CTA Section --- */
+        .cta-section {
+            text-align: center;
+            padding: 100px 0;
+            background: var(--surface);
+        }
+
+        .cta-section h2 { margin-bottom: 1rem; font-size: 2.5rem; }
+        .cta-section p { margin-bottom: 2rem; color: var(--text-muted); }
+
+        /* --- Footer --- */
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 2rem 0;
+            text-align: center;
+            font-family: var(--font-code);
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* --- Responsive --- */
+        @media (max-width: 900px) {
+            .hero { flex-direction: column; text-align: left; padding-top: 120px; }
+            .hero-visual { width: 100%; }
+            .nav-links { display: none; }
+        }
+
+        @media (max-width: 600px) {
+            .hero-title { font-size: 2.5rem; }
+            .hero-actions { flex-direction: column; }
+            .step-item { flex-direction: column; }
+            .step-num { width: 100%; border-right: none; border-bottom: 1px solid var(--border); padding: 0.5rem; }
+            .step-text { font-size: 0.9rem; padding: 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Навигация -->
+    <nav>
+        <div class="container nav-inner">
+            <div class="logo">
+    &lt;SOVA
+    <!-- Замени 'твое-лого.png' на путь к твоей картинке (или .svg) -->
+    <img src="https://cdn.leonardo.ai/users/3dbee0af-1e14-473e-8b7f-95118cbc7141/generations/1f14471f-48ef-69c0-a8cc-c2bf302fc751/gemini-2.5-flash-image_A_minimalist_logo_for_a_secure_AI_messenger_called_Sova_owl_._No_text_icon_only.-0.jpg" alt="logo" class="logo-icon">
+    &gt;
+    </div>
+            <div class="nav-links">
+                <a href="#features">Features</a>
+                <a href="#roadmap">AI Roadmap</a>
+                <a href="#setup">Setup</a>
+            </div>
+            <a href="#download" class="btn btn-primary">Скачать</a>
+        </div>
+    </nav>
+
+    <!-- Главный экран -->
+    <header class="container hero">
+        <div class="hero-content">
+            <h1 class="hero-title">Initialize<br>Communication</h1>
+            <p class="hero-subtitle">
+                Собственный мессенджер нового поколения. Бескомпромиссная безопасность, E2E-шифрование и строгий код. Мы строим надёжную базу для интеграции лучших AI-инструментов.
+            </p>
+            <div class="hero-actions">
+                <a href="#download" class="btn btn-primary">Скачать v1.0.4</a>
+                <a href="#" class="btn">GitHub Репозиторий</a>
+            </div>
+        </div>
+        <div class="hero-visual">
+            <div class="terminal-header">
+                <span>sova-chat-ui.exe</span>
+                <span>[ - ] [ x ]</span>
+            </div>
+            <div class="terminal-body">
+                <div class="chat-line">
+                    <span class="chat-time">[14:02]</span>
+                    <span class="chat-user">sys_admin:</span>
+                    <span>/connect --secure</span>
+                </div>
+                <div class="chat-line">
+                    <span class="chat-time">[14:02]</span>
+                    <span class="chat-bot">sova_core:</span>
+                    <span style="color: var(--text-muted)">Handshake verified. E2E active.</span>
+                </div>
+                <div class="chat-line">
+                    <span class="chat-time">[14:05]</span>
+                    <span class="chat-user">dev_01:</span>
+                    <span>Привет, когда добавите саммари переписок?</span>
+                </div>
+                <div class="chat-line" style="margin-top: 1rem;">
+                    <span class="chat-bot">sova_ai <span class="badge beta" style="margin-left: 0">[BETA]</span>:</span>
+                    <span>> Анализирую запрос...<br>> Релиз AI-ассистента запланирован на следующий спринт.</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Базовые Фичи -->
+    <section id="features">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title"><span class="muted">//</span> Архитектура</h2>
+                <p class="muted code-font">Базовый функционал, доступный уже сейчас.</p>
+            </div>
+            
+            <div class="grid">
+                <div class="card">
+                    <div class="card-numbers">1<br>2<br>3<br>4</div>
+                    <div class="card-content">
+                        <span class="comment">/** Privacy first */</span>
+                        <h3>E2E Шифрование <span class="badge stable">[STABLE]</span></h3>
+                        <p>Протокол Signal по умолчанию для всех личных чатов. Ключи хранятся только на ваших устройствах.</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-numbers">1<br>2<br>3<br>4</div>
+                    <div class="card-content">
+                        <span class="comment">/** Broadcast */</span>
+                        <h3>Каналы и Группы <span class="badge stable">[STABLE]</span></h3>
+                        <p>Неограниченная аудитория для каналов, гибкая система ролей и модерации для групповых чатов.</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-numbers">1<br>2<br>3<br>4</div>
+                    <div class="card-content">
+                        <span class="comment">/** Automation */</span>
+                        <h3>Open API Боты <span class="badge stable">[STABLE]</span></h3>
+                        <p>Создавайте собственные скрипты и ботов через открытое HTTP API и вебхуки.</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-numbers">1<br>2<br>3<br>4</div>
+                    <div class="card-content">
+                        <span class="comment">/** Everywhere */</span>
+                        <h3>Кроссплатформенность <span class="badge stable">[STABLE]</span></h3>
+                        <p>Нативные клиенты для Windows, macOS, Linux, iOS и Android. Мгновенная синхронизация.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Roadmap (AI Tools) -->
+    <section id="roadmap">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title"><span class="muted">#</span> AI_ROADMAP</h2>
+                <p class="muted code-font">Интеграция нейросетей на уровне ядра мессенджера.</p>
+            </div>
+
+            <div class="grid">
+                <div class="roadmap-card">
+                    <h3>Встроенный AI-ассистент <span class="badge beta">[BETA]</span></h3>
+                    <p class="muted">Вызов бота через @sova_ai в любом чате для генерации кода, текста или ответов на вопросы контекстно к переписке.</p>
+                </div>
+                <div class="roadmap-card">
+                    <h3>Автосаммари чатов <span class="badge soon">[SOON]</span></h3>
+                    <p class="muted">Пропустили 1000 сообщений? Нажмите одну кнопку, и ИИ выдаст краткую выжимку: кто, о чём и к чему пришли.</p>
+                </div>
+                <div class="roadmap-card">
+                    <h3>Умная сортировка <span class="badge soon">[SOON]</span></h3>
+                    <p class="muted">Автоматическое распределение чатов по папкам (Работа, Личное, Спам, Новости) на основе семантического анализа.</p>
+                </div>
+                <div class="roadmap-card">
+                    <h3>Транскрипция войсов <span class="badge soon">[SOON]</span></h3>
+                    <p class="muted">Локальное распознавание голосовых сообщений (Whisper) с возможностью автоматического перевода в код или задачи.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Как это работает -->
+    <section id="setup">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title"><span class="muted">./</span> Быстрый старт</h2>
+            </div>
+            
+            <div class="steps-list">
+                <div class="step-item">
+                    <div class="step-num">01</div>
+                    <div class="step-text">
+                        <span class="prompt">$</span> wget https://sova.dev/releases/latest/sova.tar.gz
+                    </div>
+                </div>
+                <div class="step-item">
+                    <div class="step-num">02</div>
+                    <div class="step-text">
+                        <span class="prompt">$</span> tar -xzf sova.tar.gz && cd sova
+                    </div>
+                </div>
+                <div class="step-item">
+                    <div class="step-num">03</div>
+                    <div class="step-text">
+                        <span class="prompt">$</span> ./sova-install --start
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section id="download" class="cta-section">
+        <div class="container">
+            <h2>Начни использовать сегодня</h2>
+            <p class="code-font">v1.0.4 - Stable Release. Доступно для всех платформ.</p>
+            <a href="#" class="btn btn-primary" style="font-size: 1.1rem; padding: 1rem 2rem;">[ Скачать SOVA ]</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>2026 © SOVA Corp. // Built for developers.</p>
+        </div>
+    </footer>
+
+    <!-- Скрипт для плавной прокрутки при клике по якорям (если браузер не поддерживает CSS scroll-behavior) -->
+    <script>
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if(target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
