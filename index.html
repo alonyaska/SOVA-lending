@@ -1,12 +1,15 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="ru">
-<head> 
+
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> Sova - Защищённый мессенджер с AI</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;700&display=swap"
+        rel="stylesheet">
     <style>
         :root {
             --bg: #0d0e10;
@@ -16,7 +19,7 @@
             --accent: #4a9eff;
             --text-main: #e1e1e6;
             --text-muted: #7a7d85;
-            
+
             --badge-stable: #56d364;
             --badge-beta: #e3b341;
             --badge-soon: #8957e5;
@@ -43,7 +46,11 @@
             overflow-x: hidden;
         }
 
-        h1, h2, h3, h4, .code-font {
+        h1,
+        h2,
+        h3,
+        h4,
+        .code-font {
             font-family: var(--font-code);
             font-weight: 700;
         }
@@ -114,12 +121,32 @@
             font-weight: normal;
         }
 
-        .badge.stable { color: var(--badge-stable); border-color: var(--badge-stable); }
-        .badge.beta { color: var(--badge-beta); border-color: var(--badge-beta); }
-        .badge.soon { color: var(--badge-soon); border-color: var(--badge-soon); }
+        .badge.stable {
+            color: var(--badge-stable);
+            border-color: var(--badge-stable);
+        }
 
-        .muted { color: var(--text-muted); }
-        .comment { color: var(--text-muted); font-family: var(--font-code); display: block; margin-bottom: 0.5rem; font-size: 0.85rem;}
+        .badge.beta {
+            color: var(--badge-beta);
+            border-color: var(--badge-beta);
+        }
+
+        .badge.soon {
+            color: var(--badge-soon);
+            border-color: var(--badge-soon);
+        }
+
+        .muted {
+            color: var(--text-muted);
+        }
+
+        .comment {
+            color: var(--text-muted);
+            font-family: var(--font-code);
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 0.85rem;
+        }
 
         /* --- Navbar --- */
         nav {
@@ -140,21 +167,26 @@
         }
 
         .logo {
-        display: flex;
-        align-items: center; /* Выравнивает текст и картинку ровно по центру */
-        gap: 0.3rem; /* Небольшой отступ между текстом и логотипом */
-        font-family: var(--font-code);
-        font-size: 1.5rem;
-        font-weight: 700;
-        color: var(--text-main);
-        letter-spacing: -1px;
-    }
+            display: flex;
+            align-items: center;
+            /* Выравнивает текст и картинку ровно по центру */
+            gap: 0.3rem;
+            /* Небольшой отступ между текстом и логотипом */
+            font-family: var(--font-code);
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-main);
+            letter-spacing: -1px;
+        }
 
         .logo-icon {
-            height: 1.2em; /* Логотип автоматически подстроится под размер текста */
+            height: 1.2em;
+            /* Логотип автоматически подстроится под размер текста */
             width: auto;
-            object-fit: contain; /* Чтобы картинка не искажалась */
-            border-radius: 4px; /* Опционально: если хочешь чуть скруглить края картинки */
+            object-fit: contain;
+            /* Чтобы картинка не искажалась */
+            border-radius: 4px;
+            /* Опционально: если хочешь чуть скруглить края картинки */
         }
 
         .nav-links {
@@ -164,8 +196,13 @@
             font-size: 0.9rem;
         }
 
-        .nav-links a { color: var(--text-muted); }
-        .nav-links a:hover { color: var(--text-main); }
+        .nav-links a {
+            color: var(--text-muted);
+        }
+
+        .nav-links a:hover {
+            color: var(--text-main);
+        }
 
         /* --- Hero Section --- */
         .hero {
@@ -185,6 +222,18 @@
             margin-bottom: 1.5rem;
             text-transform: uppercase;
             letter-spacing: -2px;
+            min-height: 7.7rem;
+        }
+
+        .cursor {
+            color: var(--accent);
+            animation: blink 1s step-start infinite;
+        }
+
+        @keyframes blink {
+            50% {
+                opacity: 0;
+            }
         }
 
         .hero-subtitle {
@@ -224,16 +273,40 @@
             gap: 0.8rem;
         }
 
-        .chat-line { display: flex; gap: 0.5rem; }
-        .chat-time { color: var(--text-muted); }
-        .chat-user { color: var(--accent); font-weight: bold; }
-        .chat-bot { color: var(--badge-beta); font-weight: bold; }
+        .chat-line {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .chat-time {
+            color: var(--text-muted);
+        }
+
+        .chat-user {
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        .chat-bot {
+            color: var(--badge-beta);
+            font-weight: bold;
+        }
 
         /* --- Sections --- */
-        section { padding: 80px 0; border-top: 1px solid var(--border); }
-        
-        .section-header { margin-bottom: 3rem; }
-        .section-title { font-size: 2rem; margin-bottom: 0.5rem; text-transform: uppercase;}
+        section {
+            padding: 80px 0;
+            border-top: 1px solid var(--border);
+        }
+
+        .section-header {
+            margin-bottom: 3rem;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+        }
 
         /* --- Grid (Cards) --- */
         .grid {
@@ -244,27 +317,108 @@
 
         .card {
             border: 1px solid var(--border);
-            background: var(--bg);
+            background: var(--surface);
             display: flex;
-            transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+            flex-direction: column;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            right: -50%;
+            bottom: -50%;
+            background: linear-gradient(to bottom, rgba(74, 158, 255, 0) 0%, rgba(74, 158, 255, 0.05) 50%, rgba(74, 158, 255, 0) 100%);
+            background-size: 100% 4px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+            animation: scanline 8s linear infinite;
+            z-index: 1;
+        }
+
+        @keyframes scanline {
+            from {
+                transform: translateY(-50%);
+            }
+
+            to {
+                transform: translateY(50%);
+            }
+        }
+
+        .card:hover::after {
+            opacity: 1;
         }
 
         .card:hover {
             border-color: var(--accent);
-            transform: translate(-3px, -3px);
-            box-shadow: 3px 3px 0 var(--accent);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 15px rgba(74, 158, 255, 0.1);
+        }
+
+        .card-terminal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 1rem;
+            border-bottom: 1px solid var(--border);
+            background: var(--bg);
+            font-family: var(--font-code);
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            z-index: 2;
+            position: relative;
+        }
+
+        .card-terminal-header .dots {
+            display: flex;
+            gap: 0.4rem;
+        }
+
+        .card-terminal-header .dots span {
+            display: block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--border);
+            transition: background 0.3s;
+        }
+
+        .card:hover .card-terminal-header .dots span:nth-child(1) {
+            background: #ff5f56;
+        }
+
+        .card:hover .card-terminal-header .dots span:nth-child(2) {
+            background: #ffbd2e;
+        }
+
+        .card:hover .card-terminal-header .dots span:nth-child(3) {
+            background: #27c93f;
+        }
+
+        .card-body {
+            display: flex;
+            flex: 1;
+            position: relative;
+            z-index: 2;
         }
 
         .card-numbers {
             padding: 1.5rem 0.75rem;
-            background: var(--surface);
-            border-right: 1px solid var(--border);
-            color: var(--text-muted);
+            background: var(--bg);
+            border-right: 1px dashed var(--border);
+            color: var(--accent);
             font-family: var(--font-code);
             font-size: 0.8rem;
             text-align: right;
             line-height: 1.8;
             user-select: none;
+            opacity: 0.6;
         }
 
         .card-content {
@@ -276,31 +430,23 @@
             font-size: 1.2rem;
             margin-bottom: 0.5rem;
             color: var(--text-main);
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        @media (min-width: 1200px) {
+            .card-content h3 {
+                flex-direction: row;
+                align-items: center;
+            }
         }
 
         .card-content p {
             font-size: 0.95rem;
             color: var(--text-muted);
-        }
-
-        /* --- Roadmap --- */
-        .roadmap-card {
-            padding: 2rem;
-            border: 1px solid var(--border);
-            transition: all 0.2s;
-            position: relative;
-        }
-
-        .roadmap-card:hover {
-            border-color: var(--border-hover);
-            background: var(--surface);
-        }
-
-        .roadmap-card h3 {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 1rem;
         }
 
         /* --- How it works --- */
@@ -337,8 +483,11 @@
             font-size: 1.1rem;
             width: 100%;
         }
-        
-        .prompt { color: var(--text-muted); margin-right: 0.5rem; }
+
+        .prompt {
+            color: var(--text-muted);
+            margin-right: 0.5rem;
+        }
 
         /* --- CTA Section --- */
         .cta-section {
@@ -347,8 +496,15 @@
             background: var(--surface);
         }
 
-        .cta-section h2 { margin-bottom: 1rem; font-size: 2.5rem; }
-        .cta-section p { margin-bottom: 2rem; color: var(--text-muted); }
+        .cta-section h2 {
+            margin-bottom: 1rem;
+            font-size: 2.5rem;
+        }
+
+        .cta-section p {
+            margin-bottom: 2rem;
+            color: var(--text-muted);
+        }
 
         /* --- Footer --- */
         footer {
@@ -362,31 +518,62 @@
 
         /* --- Responsive --- */
         @media (max-width: 900px) {
-            .hero { flex-direction: column; text-align: left; padding-top: 120px; }
-            .hero-visual { width: 100%; }
-            .nav-links { display: none; }
+            .hero {
+                flex-direction: column;
+                text-align: left;
+                padding-top: 120px;
+            }
+
+            .hero-visual {
+                width: 100%;
+            }
+
+            .nav-links {
+                display: none;
+            }
         }
 
         @media (max-width: 600px) {
-            .hero-title { font-size: 2.5rem; }
-            .hero-actions { flex-direction: column; }
-            .step-item { flex-direction: column; }
-            .step-num { width: 100%; border-right: none; border-bottom: 1px solid var(--border); padding: 0.5rem; }
-            .step-text { font-size: 0.9rem; padding: 1rem; }
+            .hero-title {
+                font-size: 2.5rem;
+                min-height: 5.5rem;
+            }
+
+            .hero-actions {
+                flex-direction: column;
+            }
+
+            .step-item {
+                flex-direction: column;
+            }
+
+            .step-num {
+                width: 100%;
+                border-right: none;
+                border-bottom: 1px solid var(--border);
+                padding: 0.5rem;
+            }
+
+            .step-text {
+                font-size: 0.9rem;
+                padding: 1rem;
+            }
         }
     </style>
 </head>
+
 <body>
 
     <!-- Навигация -->
     <nav>
         <div class="container nav-inner">
             <div class="logo">
-    &lt;SOVA
-    <!-- Замени 'твое-лого.png' на путь к твоей картинке (или .svg) -->
-    <img src="https://cdn.leonardo.ai/users/3dbee0af-1e14-473e-8b7f-95118cbc7141/generations/1f14471f-48ef-69c0-a8cc-c2bf302fc751/gemini-2.5-flash-image_A_minimalist_logo_for_a_secure_AI_messenger_called_Sova_owl_._No_text_icon_only.-0.jpg" alt="logo" class="logo-icon">
-    &gt;
-    </div>
+                &lt;SOVA
+                <!-- Замени 'твое-лого.png' на путь к твоей картинке (или .svg) -->
+                <img src="https://cdn.leonardo.ai/users/3dbee0af-1e14-473e-8b7f-95118cbc7141/generations/1f14471f-48ef-69c0-a8cc-c2bf302fc751/gemini-2.5-flash-image_A_minimalist_logo_for_a_secure_AI_messenger_called_Sova_owl_._No_text_icon_only.-0.jpg"
+                    alt="logo" class="logo-icon">
+                &gt;
+            </div>
             <div class="nav-links">
                 <a href="#features">Features</a>
                 <a href="#roadmap">AI Roadmap</a>
@@ -401,7 +588,8 @@
         <div class="hero-content">
             <h1 class="hero-title">Initialize<br>Communication</h1>
             <p class="hero-subtitle">
-                Собственный мессенджер нового поколения. Бескомпромиссная безопасность, E2E-шифрование и строгий код. Мы строим надёжную базу для интеграции лучших AI-инструментов.
+                Собственный мессенджер нового поколения. Бескомпромиссная безопасность, E2E-шифрование и строгий код. Мы
+                строим надёжную базу для интеграции лучших AI-инструментов.
             </p>
             <div class="hero-actions">
                 <a href="#download" class="btn btn-primary">Скачать v1.0.4</a>
@@ -444,38 +632,51 @@
                 <h2 class="section-title"><span class="muted">//</span> Архитектура</h2>
                 <p class="muted code-font">Базовый функционал, доступный уже сейчас.</p>
             </div>
-            
+
             <div class="grid">
                 <div class="card">
-                    <div class="card-numbers">1<br>2<br>3<br>4</div>
-                    <div class="card-content">
-                        <span class="comment">/** Privacy first */</span>
-                        <h3>E2E Шифрование <span class="badge stable">[STABLE]</span></h3>
-                        <p>Протокол Signal по умолчанию для всех личных чатов. Ключи хранятся только на ваших устройствах.</p>
+                    <div class="card-terminal-header">
+                        <div class="dots"><span></span><span></span><span></span></div>
+                        <span>sys@core:~/privacy</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-numbers">01<br>02<br>03<br>04</div>
+                        <div class="card-content">
+                            <span class="comment">/** Privacy first */</span>
+                            <h3>E2E Шифрование <span class="badge stable">[STABLE]</span></h3>
+                            <p>Протокол Signal по умолчанию для всех личных чатов. Ключи хранятся только на ваших
+                                устройствах.</p>
+                        </div>
                     </div>
                 </div>
                 <div class="card">
-                    <div class="card-numbers">1<br>2<br>3<br>4</div>
-                    <div class="card-content">
-                        <span class="comment">/** Broadcast */</span>
-                        <h3>Каналы и Группы <span class="badge stable">[STABLE]</span></h3>
-                        <p>Неограниченная аудитория для каналов, гибкая система ролей и модерации для групповых чатов.</p>
+                    <div class="card-terminal-header">
+                        <div class="dots"><span></span><span></span><span></span></div>
+                        <span>sys@core:~/broadcast</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-numbers">01<br>02<br>03<br>04</div>
+                        <div class="card-content">
+                            <span class="comment">/** Broadcast */</span>
+                            <h3>Каналы и Группы <span class="badge stable">[STABLE]</span></h3>
+                            <p>Неограниченная аудитория для каналов, гибкая система ролей и модерации для групповых
+                                чатов.</p>
+                        </div>
                     </div>
                 </div>
                 <div class="card">
-                    <div class="card-numbers">1<br>2<br>3<br>4</div>
-                    <div class="card-content">
-                        <span class="comment">/** Automation */</span>
-                        <h3>Open API Боты <span class="badge stable">[STABLE]</span></h3>
-                        <p>Создавайте собственные скрипты и ботов через открытое HTTP API и вебхуки.</p>
+                    <div class="card-terminal-header">
+                        <div class="dots"><span></span><span></span><span></span></div>
+                        <span>sys@core:~/platform</span>
                     </div>
-                </div>
-                <div class="card">
-                    <div class="card-numbers">1<br>2<br>3<br>4</div>
-                    <div class="card-content">
-                        <span class="comment">/** Everywhere */</span>
-                        <h3>Кроссплатформенность <span class="badge stable">[STABLE]</span></h3>
-                        <p>Нативные клиенты для Windows, macOS, Linux, iOS и Android. Мгновенная синхронизация.</p>
+                    <div class="card-body">
+                        <div class="card-numbers">01<br>02<br>03<br>04</div>
+                        <div class="card-content">
+                            <span class="comment">/** Automation & Everywhere */</span>
+                            <h3>Open API & Платформы <span class="badge stable">[STABLE]</span></h3>
+                            <p>Нативные клиенты (Win, Mac, Lin, iOS, Android). Создавайте ботов через открытое HTTP API.
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -491,21 +692,50 @@
             </div>
 
             <div class="grid">
-                <div class="roadmap-card">
-                    <h3>Встроенный AI-ассистент <span class="badge beta">[BETA]</span></h3>
-                    <p class="muted">Вызов бота через @sova_ai в любом чате для генерации кода, текста или ответов на вопросы контекстно к переписке.</p>
+                <div class="card">
+                    <div class="card-terminal-header">
+                        <div class="dots"><span></span><span></span><span></span></div>
+                        <span>sova_ai@module:~/assistant</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-numbers">01<br>02<br>03<br>04</div>
+                        <div class="card-content">
+                            <span class="comment">/** Generative Model */</span>
+                            <h3>Встроенный AI-ассистент <span class="badge beta">[BETA]</span></h3>
+                            <p class="muted">Вызов бота через @sova_ai в любом чате для генерации кода, текста или
+                                ответов на вопросы контекстно к переписке.</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="roadmap-card">
-                    <h3>Автосаммари чатов <span class="badge soon">[SOON]</span></h3>
-                    <p class="muted">Пропустили 1000 сообщений? Нажмите одну кнопку, и ИИ выдаст краткую выжимку: кто, о чём и к чему пришли.</p>
+                <div class="card">
+                    <div class="card-terminal-header">
+                        <div class="dots"><span></span><span></span><span></span></div>
+                        <span>sova_ai@module:~/nlp</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-numbers">01<br>02<br>03<br>04</div>
+                        <div class="card-content">
+                            <span class="comment">/** Semantic Analysis */</span>
+                            <h3>Семантическая сортировка <span class="badge soon">[SOON]</span></h3>
+                            <p class="muted">Автоматическое распределение чатов по папкам на основе нейроанализа
+                                содержания. Умная фильтрация спама.</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="roadmap-card">
-                    <h3>Умная сортировка <span class="badge soon">[SOON]</span></h3>
-                    <p class="muted">Автоматическое распределение чатов по папкам (Работа, Личное, Спам, Новости) на основе семантического анализа.</p>
-                </div>
-                <div class="roadmap-card">
-                    <h3>Транскрипция войсов <span class="badge soon">[SOON]</span></h3>
-                    <p class="muted">Локальное распознавание голосовых сообщений (Whisper) с возможностью автоматического перевода в код или задачи.</p>
+                <div class="card">
+                    <div class="card-terminal-header">
+                        <div class="dots"><span></span><span></span><span></span></div>
+                        <span>sova_ai@module:~/audio</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-numbers">01<br>02<br>03<br>04</div>
+                        <div class="card-content">
+                            <span class="comment">/** Voice to Text & Summary */</span>
+                            <h3>Аудио-интеллект (Whisper) <span class="badge soon">[SOON]</span></h3>
+                            <p class="muted">Локальное распознавание голосовых сообщений с автовыжимкой главного и
+                                автоматической конвертацией в задачи.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -517,7 +747,7 @@
             <div class="section-header">
                 <h2 class="section-title"><span class="muted">./</span> Быстрый старт</h2>
             </div>
-            
+
             <div class="steps-list">
                 <div class="step-item">
                     <div class="step-num">01</div>
@@ -559,11 +789,75 @@
 
     <!-- Скрипт для плавной прокрутки при клике по якорям (если браузер не поддерживает CSS scroll-behavior) -->
     <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const titleElement = document.querySelector('.hero-title');
+            const targetText = "Initialize\nCommunication";
+            let currentText = "";
+            let charIndex = 0;
+            let isDeletingAll = false;
+            let isCorrectingMistake = false;
+
+            function getRandomChar(correctChar) {
+                const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+                let char = chars.charAt(Math.floor(Math.random() * chars.length));
+                while (char === correctChar || correctChar === '\n') {
+                    char = chars.charAt(Math.floor(Math.random() * chars.length));
+                    if (correctChar === '\n') break;
+                }
+                return char;
+            }
+
+            function updateDOM() {
+                titleElement.innerHTML = currentText.replace(/\n/g, '<br>') + '<span class="cursor">|</span>';
+            }
+
+            function type() {
+                let delay = Math.random() * 100 + 50;
+
+                if (isDeletingAll) {
+                    currentText = currentText.substring(0, currentText.length - 1);
+                    delay = 30;
+                    if (currentText === "") {
+                        isDeletingAll = false;
+                        charIndex = 0;
+                        delay = 500;
+                    }
+                } else if (isCorrectingMistake) {
+                    currentText = currentText.substring(0, currentText.length - 1);
+                    isCorrectingMistake = false;
+                    delay = 200;
+                } else {
+                    if (charIndex < targetText.length) {
+                        let charToType = targetText.charAt(charIndex);
+
+                        if (!isCorrectingMistake && Math.random() < 0.1 && charToType !== ' ' && charToType !== '\n') {
+                            currentText += getRandomChar(charToType);
+                            isCorrectingMistake = true;
+                            delay = 300;
+                        } else {
+                            currentText += charToType;
+                            charIndex++;
+                            if (charToType === ' ' || charToType === '\n') delay = 200;
+                        }
+                    } else {
+                        delay = 3000;
+                        isDeletingAll = true;
+                    }
+                }
+
+                updateDOM();
+                setTimeout(type, delay);
+            }
+
+            titleElement.innerHTML = '<span class="cursor">|</span>';
+            setTimeout(type, 1000);
+        });
+
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
                 const target = document.querySelector(this.getAttribute('href'));
-                if(target) {
+                if (target) {
                     target.scrollIntoView({
                         behavior: 'smooth'
                     });
@@ -572,4 +866,5 @@
         });
     </script>
 </body>
+
 </html>
