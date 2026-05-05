@@ -15,6 +15,44 @@
             --font-code: 'JetBrains Mono', monospace;
         }
 
+        body.theme-clean-mode {
+            --bg: #fdfbf7;
+            --surface: #f4eee0;
+            --border: #e8dfcc;
+            --border-hover: #dcd6c9;
+            --accent: #2563eb;
+            --text-main: #2c2822;
+            --text-muted: #857c6b;
+            --font-text: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+
+        body.theme-clean-mode nav {
+            background: rgba(254, 253, 248, 0.75);
+            border-bottom-color: var(--border);
+        }
+
+        body.theme-clean-mode #theme-icon {
+            filter: invert(0.2) sepia(0.1) hue-rotate(-40deg) !important;
+        }
+
+        body.theme-clean-mode .card {
+            background: rgba(255, 255, 255, 0.6);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        body.theme-clean-mode .card::after {
+            display: none;
+        }
+
+        body.theme-clean-mode .card:hover {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+        
+        body.theme-clean-mode .card-terminal-header, 
+        body.theme-clean-mode .card-numbers {
+            font-family: var(--font-text);
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -31,6 +69,7 @@
             font-family: var(--font-text);
             line-height: 1.6;
             overflow-x: hidden;
+            transition: background-color 0.5s ease, color 0.5s ease;
         }
 
         h1,
@@ -520,6 +559,151 @@
         .card-content p {
             font-size: 0.95rem;
             color: var(--text-muted);
+        }
+
+        /* --- Themes Override --- */
+        .theme-split-layout {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+
+        @media (min-width: 600px) {
+            .theme-split-layout {
+                grid-template-columns: 1.2fr 1fr;
+            }
+        }
+
+        .theme-features {
+            display: flex;
+            align-items: center;
+        }
+
+        .theme-features-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            font-size: 0.85rem;
+        }
+
+        .theme-features-list li {
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 0.75rem 1rem;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .theme-terminal {
+            background: #131418 !important;
+            border-color: #2a2d35 !important;
+            color: #e1e1e6 !important;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .theme-terminal:hover {
+            transform: translateY(-2px);
+        }
+
+        .theme-terminal .card-terminal-header {
+            background: #0d0e10 !important;
+            border-bottom-color: #2a2d35 !important;
+            color: #7a7d85 !important;
+            font-family: 'JetBrains Mono', monospace !important;
+        }
+
+        .theme-terminal .card-numbers {
+            background: #0a0b0d !important;
+            border-right-color: #2a2d35 !important;
+            color: #3b3f4a !important;
+            font-family: 'JetBrains Mono', monospace !important;
+        }
+
+        .theme-terminal .card-content h3 {
+            color: #e1e1e6 !important;
+        }
+
+        .theme-terminal .card-content p {
+            color: #7a7d85 !important;
+        }
+
+        .theme-terminal .theme-features-list li {
+            background: rgba(0, 0, 0, 0.2) !important;
+            border-color: #2a2d35 !important;
+            color: var(--accent) !important;
+            font-family: 'JetBrains Mono', monospace !important;
+            box-shadow: none !important;
+        }
+
+        body.theme-clean-mode .theme-terminal::after {
+            display: block !important;
+        }
+
+        .theme-clean {
+            background: linear-gradient(135deg, #fefdf8 0%, #f4eee0 100%);
+            border-color: #e8dfcc;
+            color: #423d33;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .theme-clean:hover {
+            transform: translateY(-2px);
+        }
+        
+        .theme-clean .card-terminal-header {
+            background: rgba(244, 238, 224, 0.6);
+            border-bottom-color: #e8dfcc;
+            color: #857c6b;
+            border-radius: 12px 12px 0 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+
+        .theme-clean .card-numbers {
+            background: transparent;
+            border-right-color: #e8dfcc;
+            color: #b5a995;
+        }
+
+        .theme-clean .card-content h3 {
+            color: #2c2822;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+
+        .theme-clean .card-content p {
+            color: #5c5549;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+
+        .theme-clean .theme-features-list li {
+            background: #e8e3d8;
+            border-color: #dcd6c9;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.03);
+            color: #423d33;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            font-weight: 500;
+        }
+
+        .theme-clean .comment {
+            color: #a39886;
+            font-family: var(--font-code);
+        }
+
+        .theme-clean:hover {
+            border-color: #d1d5db;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            transform: translateY(-2px);
+        }
+
+        .theme-clean::after {
+            display: none;
         }
 
         /* --- How it works --- */

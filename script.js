@@ -176,3 +176,56 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             });
         })();
+
+        // --- Theme Toggle Logic ---
+        (function() {
+            const toggleBtn = document.getElementById('theme-toggle');
+            const themeIcon = document.getElementById('theme-icon');
+            if (!toggleBtn || !themeIcon) return;
+
+            const updateButtonText = () => {
+                if (document.body.classList.contains('theme-clean-mode')) {
+                    themeIcon.src = 'img/icons/moon.svg';
+                } else {
+                    themeIcon.src = 'img/icons/sun.svg';
+                }
+            };
+
+            // Check localStorage
+            if (localStorage.getItem('sova-theme') === 'clean') {
+                document.body.classList.add('theme-clean-mode');
+            }
+            updateButtonText();
+
+            toggleBtn.addEventListener('click', () => {
+                document.body.classList.toggle('theme-clean-mode');
+                
+                if (document.body.classList.contains('theme-clean-mode')) {
+                    localStorage.setItem('sova-theme', 'clean');
+                } else {
+                    localStorage.setItem('sova-theme', 'terminal');
+                }
+                
+                updateButtonText();
+            });
+
+            // Card click events
+            const terminalCard = document.querySelector('.theme-terminal');
+            const cleanCard = document.querySelector('.theme-clean');
+
+            if (terminalCard) {
+                terminalCard.addEventListener('click', () => {
+                    document.body.classList.remove('theme-clean-mode');
+                    localStorage.setItem('sova-theme', 'terminal');
+                    updateButtonText();
+                });
+            }
+
+            if (cleanCard) {
+                cleanCard.addEventListener('click', () => {
+                    document.body.classList.add('theme-clean-mode');
+                    localStorage.setItem('sova-theme', 'clean');
+                    updateButtonText();
+                });
+            }
+        })();

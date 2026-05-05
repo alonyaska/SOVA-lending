@@ -31,6 +31,9 @@
                 <a href="#setup">Setup</a>
             </div>
             <div class="nav-actions">
+                <button id="theme-toggle" class="sys-status" style="cursor:pointer; background:none; border:none; padding: 0; display: flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 50%;">
+                    <img id="theme-icon" src="img/icons/sun.svg" alt="Toggle Theme" style="width: 20px; height: 20px; filter: invert(1); transition: filter 0.5s ease;">
+                </button>
                 <div class="sys-status hide-mobile">
                      <span class="pulse"></span> SYS.ON
                 </div>
@@ -44,7 +47,7 @@
         <div class="hero-content">
             <h1 class="hero-title">Initialize<br>Communication</h1>
             <p class="hero-subtitle">
-                Собственный мессенджер нового поколения. Бескомпромиссная безопасность, E2E-шифрование и строгий код. Мы
+                Собственный мессенджер нового поколения. Бескомпромиссная безопасность, встроенный обход DPI-блокировок и строгий код. Мы
                 строим надёжную базу для интеграции лучших AI-инструментов.
             </p>
             <div class="hero-actions">
@@ -62,6 +65,11 @@
                     <span class="chat-time">[14:02]</span>
                     <span class="chat-user">sys_admin:</span>
                     <span>/connect --secure</span>
+                </div>
+                <div class="chat-line">
+                    <span class="chat-time">[14:02]</span>
+                    <span class="chat-bot">sova_core:</span>
+                    <span style="color: var(--text-muted)">DPI bypass active. Routing via P2P nodes...</span>
                 </div>
                 <div class="chat-line">
                     <span class="chat-time">[14:02]</span>
@@ -108,15 +116,14 @@
                 <div class="card">
                     <div class="card-terminal-header">
                         <div class="dots"><span></span><span></span><span></span></div>
-                        <span>sys@core:~/broadcast</span>
+                        <span>sys@core:~/network</span>
                     </div>
                     <div class="card-body">
                         <div class="card-numbers">01<br>02<br>03<br>04</div>
                         <div class="card-content">
-                            <span class="comment">/** Broadcast */</span>
-                            <h3>Каналы и Группы <span class="badge stable">[STABLE]</span></h3>
-                            <p>Неограниченная аудитория для каналов, гибкая система ролей и модерации для групповых
-                                чатов.</p>
+                            <span class="comment">/** Anti-Censorship */</span>
+                            <h3>Свобода сети <span class="badge stable">[STABLE]</span></h3>
+                            <p>Встроенный обход блокировок (DPI) и поддержка децентрализованных P2P-нод. SOVA остается на связи даже при жестких шатдаунах интернета.</p>
                         </div>
                     </div>
                 </div>
@@ -130,7 +137,7 @@
                         <div class="card-content">
                             <span class="comment">/** Automation & Everywhere */</span>
                             <h3>Open API & Платформы <span class="badge stable">[STABLE]</span></h3>
-                            <p>Нативные клиенты (Win, Mac, Lin, iOS, Android). Создавайте ботов через открытое HTTP API.
+                            <p>Нативные клиенты (Win, Mac, Lin, iOS, Android). Терминальный режим для гиков и привычный чистый UI (в стиле Apple/Google) для всех остальных.
                             </p>
                         </div>
                     </div>
@@ -190,6 +197,67 @@
                             <h3>Аудио-интеллект (Whisper) <span class="badge soon">[SOON]</span></h3>
                             <p class="muted">Локальное распознавание голосовых сообщений с автовыжимкой главного и
                                 автоматической конвертацией в задачи.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Темы интерфейса -->
+    <section id="themes">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title"><span class="muted">//</span> Интерфейс</h2>
+                <p class="muted code-font">Два режима работы из коробки. Выбирай свой стиль.</p>
+            </div>
+
+            <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
+                <!-- Theme: Terminal -->
+                <div class="card theme-terminal">
+                    <div class="card-terminal-header">
+                        <div class="dots"><span></span><span></span><span></span></div>
+                        <span>sys@core:~/theme-terminal</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-numbers">01<br>02<br>03<br>04</div>
+                        <div class="card-content theme-split-layout">
+                            <div class="theme-info">
+                                <span class="comment">/** Hardcore Mode */</span>
+                                <h3>Терминал</h3>
+                                <p class="muted">Строгий киберпанк-интерфейс, созданный для максимальной скорости.</p>
+                            </div>
+                            <div class="theme-features">
+                                <ul class="theme-features-list">
+                                    <li>> Моноширинный шрифт</li>
+                                    <li>> Полное управление с клавиатуры</li>
+                                    <li>> Никакого визуального мусора</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Theme: Clean UI -->
+                <div class="card theme-clean">
+                    <div class="card-terminal-header">
+                        <div class="dots"><span></span><span></span><span></span></div>
+                        <span>user@ui:~/theme-clean</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-numbers">01<br>02<br>03<br>04</div>
+                        <div class="card-content theme-split-layout">
+                            <div class="theme-info">
+                                <span class="comment">/** Casual Mode */</span>
+                                <h3>Clean UI</h3>
+                                <p>Минималистичный дизайн в стиле iOS/Material для ваших друзей и семьи.</p>
+                            </div>
+                            <div class="theme-features">
+                                <ul class="theme-features-list">
+                                    <li>• Системные сглаженные шрифты</li>
+                                    <li>• Плавные 60fps анимации</li>
+                                    <li>• Интуитивная навигация</li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
